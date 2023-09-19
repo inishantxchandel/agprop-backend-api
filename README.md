@@ -124,7 +124,7 @@ For routes that require authentication, make sure to add the token to the Author
   GET http://localhost:3000/api/viewallusers
   ```
 
-  - **List All Users where X texhnical used:**
+  - **List All Users where X technical stack used:**
 
   ```http
   GET http://localhost:3000/api/usersByTechStack?techStack=JavaScript
@@ -186,9 +186,9 @@ For routes that require authentication, make sure to add the token to the Author
   ```http
   GET http://localhost:3000/api/viewallprojects
   ```
- - **List All Users where X texhnical used:**
+ - **List All Users where X technical stack used:**
 
   ```http
-  GET http://localhost:3000/api/projectsByTechStack?techStack=JavaScript
+    GET http://localhost:3000/api/projectsByTechStack?techStack=JavaScript
   ```
 
