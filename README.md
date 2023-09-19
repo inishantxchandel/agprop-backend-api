@@ -189,6 +189,6 @@ For routes that require authentication, make sure to add the token to the Author
  - **List All Users where X technical stack used:**
 
   ```http
-    GET http://localhost:3000/api/projectsByTechStack?techStack=JavaScript
+  GET http://localhost:3000/api/projectsByTechStack?techStack=JavaScript
   ```
 
