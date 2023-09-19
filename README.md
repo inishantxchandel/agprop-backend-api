@@ -19,7 +19,7 @@ Before you begin, ensure you have the following prerequisites:
 1. Clone the project repository from GitHub:
 
    ```bash
-   git clone <https://github.com/inishantxchandel/agprop-backend-api.git>
+   git clone https://github.com/inishantxchandel/agprop-backend-api.git
    cd agprop-backend-api
    ```
 
