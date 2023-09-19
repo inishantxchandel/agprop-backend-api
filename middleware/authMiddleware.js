@@ -41,7 +41,7 @@ async function authenticateToken(req, res, next) {
 
         // Check if the user is associated with the project
         if (!project || !user.Projects || !user.Projects.some((p) => p.id === project.id)) {
-          return res.status(403).json({ error: 'Forbidden' }); // User doesn't have access to the project
+          return res.status(403).json({ error: 'you does not have access to the project ' }); // User doesn't have access to the project
         }
       }
       req.userId = decodedToken.userId; // Assuming 'userId' is the key in your JWT payload
