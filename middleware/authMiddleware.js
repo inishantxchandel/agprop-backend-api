@@ -36,7 +36,7 @@ async function authenticateToken(req, res, next) {
       req.user = user;
 
       // If the request is for a PUT operation on a project, check if the user has access to that project
-      if (req.method === 'PUT' && req.params.projectId) {
+      if (req.method === 'PUT'  && req.params.projectId) {
         const project = await Project.findByPk(req.params.projectId);
 
         // Check if the user is associated with the project
@@ -44,6 +44,7 @@ async function authenticateToken(req, res, next) {
           return res.status(403).json({ error: 'Forbidden' }); // User doesn't have access to the project
         }
       }
+      req.userId = decodedToken.userId; // Assuming 'userId' is the key in your JWT payload
 
       next();
     } catch (error) {

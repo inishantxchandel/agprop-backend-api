@@ -25,6 +25,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+
+
 // Sync models with the database
 sequelize
   .sync()
@@ -38,3 +44,5 @@ sequelize
   .catch((error) => {
     console.error('Error syncing the database:', error);
   });
+
+ 

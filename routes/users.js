@@ -12,10 +12,10 @@ router.get('/usersByTechStack', UserController.getUsersByTechStack);
 router.get('/viewuser/:userId', UserController.viewUser);
 
 // Update user by ID
-router.put('/updateuser/:userId',authenticateToken,UserController.updateUser);
+router.put('/updateuser',authenticateToken,UserController.updateUser);
 
 // Delete user by ID
-router.delete('/deleteuser/:userId',authenticateToken, UserController.deleteUser);
+router.delete('/deleteuser',authenticateToken, UserController.deleteUser);
 
 
 // List all users

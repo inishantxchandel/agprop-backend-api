@@ -65,7 +65,7 @@ const viewUser = async (req, res) => {
 
 // Update user by ID
 const updateUser = async (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.userId;
   const { fullName, email, bio, city, state, country } = req.body;
   if (!fullName || !email) {
     return res.status(400).json({ error: 'Full name and email are required fields.' });
@@ -77,6 +77,8 @@ const updateUser = async (req, res) => {
   if (!emailRegex.test(email)) {
     return res.status(400).json({ error: 'Invalid email format.' });
   }
+
+
 
   try {
     const [updatedRows] = await User.update(req.body, {
@@ -95,7 +97,7 @@ const updateUser = async (req, res) => {
 
 // Delete user by ID
 const deleteUser = async (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.userId;
   try {
     const deletedRows = await User.destroy({
       where: { id: userId },
