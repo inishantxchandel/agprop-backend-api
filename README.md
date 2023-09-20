@@ -1,6 +1,3 @@
-# Project Name
-
-Project Description
 
 ## Getting Started
 
