@@ -1,4 +1,3 @@
-
 # Project Name
 
 Project Description
@@ -59,7 +58,7 @@ Before you begin, ensure you have the following prerequisites:
 
 To access authenticated routes, you need to obtain an authentication token by creating a user.
 
- Use the following endpoint:
+Use the following endpoint:
 
 **Create User:**
 
@@ -86,14 +85,13 @@ The response will include a token that you can use for authenticated routes.
 
 For routes that require authentication, make sure to add the token to the Authorization Bearer field in your request headers.
 
-
 - **View User by ID:**
 
   ```http
   GET http://localhost:3000/api/viewuser/:userId
   ```
 
-- **Update User  (requires authentication):**
+- **Update User (requires authentication):**
 
   ```http
   PUT http://localhost:3000/api/updateuser
@@ -141,15 +139,15 @@ For routes that require authentication, make sure to add the token to the Author
   Request Body (example):
 
   ```json
-   {
-  "projectData": {
-    "projectTitle": "My Awesome Project",
-    "description": "This is a test project",
-    "links": ["https://example.com"],
-    "technicalStack": ["JavaScript", "Node.js","Go Lang"]
-  },
-  "userIds": [12,13,14] // Replace with valid user IDs from your database
-   }
+  {
+    "projectData": {
+      "projectTitle": "My Awesome Project",
+      "description": "This is a test project",
+      "links": ["https://example.com"],
+      "technicalStack": ["JavaScript", "Node.js", "Go Lang"]
+    },
+    "userIds": [] // For a group project add valid user id's otherwise leave it blank
+  }
   ```
 
 - **View Project by ID:**
@@ -186,9 +184,9 @@ For routes that require authentication, make sure to add the token to the Author
   ```http
   GET http://localhost:3000/api/viewallprojects
   ```
- - **List All Users where X technical stack used:**
 
-  ```http
-  GET http://localhost:3000/api/projectsByTechStack?techStack=JavaScript
-  ```
+- **List All Users where X technical stack used:**
 
+```http
+GET http://localhost:3000/api/projectsByTechStack?techStack=JavaScript
+```

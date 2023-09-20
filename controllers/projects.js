@@ -1,14 +1,10 @@
-const { Project,User } = require('../config/sequelize');
-const { Sequelize } = require('sequelize'); // Import Sequelize
+const { Project, User } = require("../config/sequelize");
+const { Sequelize } = require("sequelize"); // Import Sequelize
 
 const createProject = async (req, res) => {
   try {
     const { userIds, projectData } = req.body;
-
-    // Check if userIds is provided and not empty
-    if (!userIds || userIds.length === 0) {
-      return res.status(400).json({ error: 'User IDs are required to create a project with users.' });
-    }
+    const currUser = req.user;
 
     // Retrieve the users by their IDs
     const users = await User.findAll({
@@ -17,34 +13,21 @@ const createProject = async (req, res) => {
       },
     });
 
-    // Check if all provided user IDs are valid
-    if (users.length === 0) {
-      const invalidUserIds = userIds.filter((id) => !users.some((user) => user.id === id));
-      return res.status(400).json({ error: `Invalid user IDs: ${invalidUserIds.join(', ')}` });
-    }
-
     // Create the project
     const newProject = await Project.create(projectData);
 
-    // Associate users with the project by creating entries in the join table UserProject
-    await Promise.all(users.map((user) => newProject.addUser(user)));
+    newProject.addUser(currUser);
 
-    res.status(201).json(newProject); // Return the created project with associated users
+    // Associate users with the project by creating entries in the join table UserProject
+    if (users.length > 0)
+      await Promise.all(users.map((user) => newProject.addUser(user)));
+
+    res.status(201).json(newProject); // Return the created project
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to create project.' });
+    res.status(500).json({ error: "Unable to create project." });
   }
 };
-
-
-
-
-
-
-
-
-
-
 
 // View project by ID
 const viewProject = async (req, res) => {
@@ -52,13 +35,13 @@ const viewProject = async (req, res) => {
   try {
     const project = await Project.findByPk(projectId);
     if (!project) {
-      res.status(404).json({ error: 'Project not found.' });
+      res.status(404).json({ error: "Project not found." });
     } else {
       res.status(200).json(project);
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to fetch project.' });
+    res.status(500).json({ error: "Unable to fetch project." });
   }
 };
 
@@ -70,13 +53,13 @@ const updateProject = async (req, res) => {
       where: { id: projectId },
     });
     if (updatedRows === 0) {
-      res.status(404).json({ error: 'Project not found.' });
+      res.status(404).json({ error: "Project not found." });
     } else {
-      res.status(200).json({ message: 'Project updated successfully.' });
+      res.status(200).json({ message: "Project updated successfully." });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to update project.' });
+    res.status(500).json({ error: "Unable to update project." });
   }
 };
 
@@ -88,13 +71,13 @@ const deleteProject = async (req, res) => {
       where: { id: projectId },
     });
     if (deletedRows === 0) {
-      res.status(404).json({ error: 'Project not found.' });
+      res.status(404).json({ error: "Project not found." });
     } else {
-      res.status(200).json({ message: 'Project deleted successfully.' });
+      res.status(200).json({ message: "Project deleted successfully." });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to delete project.' });
+    res.status(500).json({ error: "Unable to delete project." });
   }
 };
 
@@ -105,9 +88,10 @@ const listProjects = async (req, res) => {
     res.status(200).json(projects);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to fetch projects.' });
+    res.status(500).json({ error: "Unable to fetch projects." });
   }
 };
+// View project by tech stack
 const getProjectsByTechStack = async (req, res) => {
   const techStack = req.query.techStack;
   try {
@@ -121,13 +105,9 @@ const getProjectsByTechStack = async (req, res) => {
     res.status(200).json(projects);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to fetch projects by tech stack.' });
+    res.status(500).json({ error: "Unable to fetch projects by tech stack." });
   }
 };
-
-
-
-
 
 module.exports = {
   createProject,
@@ -135,5 +115,5 @@ module.exports = {
   updateProject,
   deleteProject,
   listProjects,
-  getProjectsByTechStack
+  getProjectsByTechStack,
 };

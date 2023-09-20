@@ -1,9 +1,9 @@
 // models/project.js
 
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const Project = sequelize.define('Project', {
+  const Project = sequelize.define("Project", {
     projectTitle: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,7 +18,6 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },
   });
-
 
   return Project;
 };

@@ -1,28 +1,28 @@
 // config/sequelize.js
-const { Sequelize } = require('sequelize');
-const UserModel = require('../models/user');
-const ProjectModel = require('../models/project');
-const UserProjectModel = require('../models/user_project'); // Import the UserProject model
+const { Sequelize } = require("sequelize");
+const UserModel = require("../models/user");
+const ProjectModel = require("../models/project");
+const UserProjectModel = require("../models/user_project"); // Import the UserProject model
 
-require('dotenv').config(); // Load environment variables from .env file
+require("dotenv").config(); // Load environment variables from .env file
 
 const sequelize = new Sequelize({
-    dialect: 'postgres', // Use 'postgres' for PostgreSQL
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    define: {
-        timestamps: false, // Disable timestamps for now; you can enable them if needed
+  dialect: "postgres", // Use 'postgres' for PostgreSQL
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  define: {
+    timestamps: false,
+  },
+  dialectOptions: {
+    ssl: {
+      require: true, // Enable SSL/TLS
+      rejectUnauthorized: false,
     },
-    dialectOptions: {
-        ssl: {
-          require: true, // Enable SSL/TLS
-          rejectUnauthorized: false, // Skip certificate validation (not recommended for production)
-        },}
+  },
 });
-
 
 const User = UserModel(sequelize);
 const Project = ProjectModel(sequelize);

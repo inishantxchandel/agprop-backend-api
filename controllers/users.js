@@ -1,27 +1,28 @@
-const { Project,User } = require('../config/sequelize');
-const jwt = require('jsonwebtoken');
-const { Sequelize } = require('sequelize'); // Import Sequelize
+const { Project, User } = require("../config/sequelize");
+const jwt = require("jsonwebtoken");
+const { Sequelize } = require("sequelize"); // Import Sequelize
+
+require("dotenv").config(); // Load environment variables from .env file
+
+const jwtSecret = process.env.JWT_SECRET_KEY; // Load JWT secret from environment variable
 
 // Create a new user
-require('dotenv').config(); // Load environment variables from .env file
-
-const jwtSecret = process.env.JWT_SECRET_KEY; // Load your JWT secret from environment variable
-
 const createUser = async (req, res) => {
   try {
     // Validate req.body
     const { fullName, email, bio, city, state, country } = req.body;
-    
+
     // Check for required fields (fullName and email)
     if (!fullName || !email) {
-      return res.status(400).json({ error: 'Full name and email are required fields.' });
+      return res
+        .status(400)
+        .json({ error: "Full name and email are required fields." });
     }
 
-    // Validate email format (you can use a regular expression or a library like validator.js)
-    // For example, a basic email format check:
+    // Validate email formats
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ error: 'Invalid email format.' });
+      return res.status(400).json({ error: "Invalid email format." });
     }
 
     // Create a new user
@@ -36,30 +37,29 @@ const createUser = async (req, res) => {
 
     // Generate a JWT token for the newly created user
     const token = jwt.sign({ userId: newUser.id }, jwtSecret, {
-      expiresIn: '24h',
+      expiresIn: "24h",
     });
 
     res.status(201).json({ newUser, token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to create user.' });
+    res.status(500).json({ error: "Unable to create user." });
   }
 };
 
 // View user by ID
 const viewUser = async (req, res) => {
-
   const userId = req.params.userId;
   try {
     const user = await User.findByPk(userId);
     if (!user) {
-      res.status(404).json({ error: 'User not found.' });
+      res.status(404).json({ error: "User not found." });
     } else {
       res.status(200).json(user);
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to fetch user.' });
+    res.status(500).json({ error: "Unable to fetch user." });
   }
 };
 
@@ -68,30 +68,30 @@ const updateUser = async (req, res) => {
   const userId = req.userId;
   const { fullName, email, bio, city, state, country } = req.body;
   if (!fullName || !email) {
-    return res.status(400).json({ error: 'Full name and email are required fields.' });
+    return res
+      .status(400)
+      .json({ error: "Full name and email are required fields." });
   }
 
   // Validate email format (you can use a regular expression or a library like validator.js)
   // For example, a basic email format check:
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return res.status(400).json({ error: 'Invalid email format.' });
+    return res.status(400).json({ error: "Invalid email format." });
   }
-
-
 
   try {
     const [updatedRows] = await User.update(req.body, {
       where: { id: userId },
     });
     if (updatedRows === 0) {
-      res.status(404).json({ error: 'User not found.' });
+      res.status(404).json({ error: "User not found." });
     } else {
-      res.status(200).json({ message: 'User updated successfully.' });
+      res.status(200).json({ message: "User updated successfully." });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to update user.' });
+    res.status(500).json({ error: "Unable to update user." });
   }
 };
 
@@ -103,13 +103,13 @@ const deleteUser = async (req, res) => {
       where: { id: userId },
     });
     if (deletedRows === 0) {
-      res.status(404).json({ error: 'User not found.' });
+      res.status(404).json({ error: "User not found." });
     } else {
-      res.status(200).json({ message: 'User deleted successfully.' });
+      res.status(200).json({ message: "User deleted successfully." });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to delete user.' });
+    res.status(500).json({ error: "Unable to delete user." });
   }
 };
 
@@ -120,7 +120,7 @@ const listUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to fetch users.' });
+    res.status(500).json({ error: "Unable to fetch users." });
   }
 };
 
@@ -140,7 +140,7 @@ const getUsersByTechStack = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Unable to fetch users by tech stack.' });
+    res.status(500).json({ error: "Unable to fetch users by tech stack." });
   }
 };
 
@@ -150,5 +150,5 @@ module.exports = {
   updateUser,
   deleteUser,
   listUsers,
-  getUsersByTechStack
+  getUsersByTechStack,
 };
