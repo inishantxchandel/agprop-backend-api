@@ -45,12 +45,22 @@ Before you begin, ensure you have the following prerequisites:
 1. Start the server:
 
    ```bash
-   npx nodemon server.js
+   npm start
    ```
 
    This will start the Express.js server.
 
 2. Your server will be running at `http://localhost:3000`.
+
+## Running Tests
+
+You can run tests for the project by using the following command:
+
+```bash
+  npm test
+```
+
+This will execute the test suite for the controllers and ensure that the API endpoints are working correctly.
 
 ## API Documentation
 

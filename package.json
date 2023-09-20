@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js",
+    "test": "mocha 'test/**/*.js' --timeout 10000",
+    "test-debug": "mocha --debug 'test/**/*.js' --timeout 10000"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,10 @@
     "sequelize": "^6.33.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "chai": "^4.3.8",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
   }
 }
