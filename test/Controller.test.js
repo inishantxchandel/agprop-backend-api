@@ -163,7 +163,6 @@ describe("Controller", () => {
         .get(`/api/viewproject/${projectId}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          // Add more assertions as needed
 
           done();
         });
@@ -171,7 +170,8 @@ describe("Controller", () => {
 
     // Add more test cases for project retrieval as needed
   });
-{/*
+  {
+    /*
  describe("PUT /api/updateproject/:projectId", () => {
     it("should update a project", (done) => {
       const updatedProject = {
@@ -197,7 +197,8 @@ describe("Controller", () => {
     });
 
     // Add more test cases for project update as needed
-  }); */}
+  }); */
+  }
   describe("GET /api/viewallprojects", () => {
     it("should retrieve all projects", (done) => {
       chai
@@ -205,14 +206,10 @@ describe("Controller", () => {
         .get("/api/viewallprojects")
         .end((err, res) => {
           expect(res).to.have.status(200);
-          // Add more assertions as needed
 
           done();
         });
     });
-
-    // Add more test cases for project retrieval as needed
-
   });
   describe("GET /api/projectsbytechstack", () => {
     it("should retrieve all projects by tech stack", (done) => {
@@ -222,7 +219,6 @@ describe("Controller", () => {
         .query({ techStack: "Node.js" })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          // Add more assertions as needed
 
           done();
         });
@@ -235,15 +231,11 @@ describe("Controller", () => {
           .query({ techStack: "Node.js" })
           .end((err, res) => {
             expect(res).to.have.status(200);
-            // Add more assertions as needed
 
             done();
           });
       });
     });
-
-    // Add more test cases for project retrieval as needed
-
   });
   describe("DELETE /api/deleteproject/:projectId", () => {
     it("should delete a project", (done) => {
@@ -253,13 +245,10 @@ describe("Controller", () => {
         .set("Authorization", `Bearer ${authToken}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          // Add more assertions as needed
 
           done();
         });
     });
-
-    // Add more test cases for project deletion as needed
   });
 
   describe("DELETE /api/deleteuser", () => {
